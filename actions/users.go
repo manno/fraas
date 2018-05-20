@@ -1,10 +1,10 @@
 package actions
 
 import (
-  "manno.name/mm/faas/models"
 	"github.com/gobuffalo/buffalo"
 	"github.com/gobuffalo/pop"
 	"github.com/pkg/errors"
+	"manno.name/mm/faas/models"
 )
 
 func UsersNew(c buffalo.Context) error {
@@ -32,8 +32,7 @@ func UsersCreate(c buffalo.Context) error {
 		return c.Render(200, r.HTML("users/new.html"))
 	}
 
-	c.Session().Set("current_user_id", u.ID)
-	c.Flash().Add("success", "Welcome to Buffalo!")
+	c.Flash().Add("success", "Registered a new user!")
 
 	return c.Redirect(302, "/")
 }
