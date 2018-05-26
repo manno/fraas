@@ -1,0 +1,3 @@
+add_column("deployments", "contact_email", "string", {"default": ""})
+add_column("deployments", "from_email", "string", {"default": ""})
+add_column("deployments", "secret_key_base", "string", {"default": ""})

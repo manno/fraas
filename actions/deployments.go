@@ -94,6 +94,8 @@ func (v DeploymentsResource) Create(c buffalo.Context) error {
 		return errors.WithStack(errors.New("no transaction found"))
 	}
 
+	deployment.SetDefaults()
+
 	// Validate the data from the html form
 	verrs, err := tx.ValidateAndCreate(deployment)
 	if err != nil {
@@ -210,6 +212,17 @@ func DeploymentsSet(c buffalo.Context) error {
 	if err != nil {
 		return err
 	}
+
+	w := app.Worker
+	w.Perform(worker.Job{
+		Queue:   "default",
+		Handler: "set_db",
+		Args: worker.Args{
+			"deployment_id": c.Param("deployment_id"),
+		},
+	})
+
+	c.Flash().Add("success", "Worker is going to set deployment")
 	return c.Redirect(302, "/deployments")
 }
 
@@ -218,6 +231,17 @@ func DeploymentsUnset(c buffalo.Context) error {
 	if err != nil {
 		return err
 	}
+
+	w := app.Worker
+	w.Perform(worker.Job{
+		Queue:   "default",
+		Handler: "unset_db",
+		Args: worker.Args{
+			"deployment_id": c.Param("deployment_id"),
+		},
+	})
+
+	c.Flash().Add("success", "Worker is going to unset deployment")
 	return c.Redirect(302, "/deployments")
 }
 

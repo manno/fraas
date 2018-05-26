@@ -1,0 +1,3 @@
+drop_column("deployments", "contact_email")
+drop_column("deployments", "from_email")
+drop_column("deployments", "secret_key_base")

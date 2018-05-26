@@ -7,16 +7,19 @@
 
 <table class="table table-striped">
   <thead>
-  <th>&nbsp;</th>
+        <th> ID </th>
+        <th> Name </th>
+        <th> External Domain </th>
+        <th> Domain </th>
+        <th>&nbsp;</th>
   </thead>
   <tbody>
     <%= for (deployment) in deployments { %>
       <tr>
-      <td>
-        <%= deployment.ID %>
-        <%= deployment.Name %>
-        <%= deployment.ExternalDomain %>
-      </td>
+      <td> <%= deployment.ID %> </td>
+      <td> <%= deployment.Name %> </td>
+      <td> <a href="https://<%= deployment.ExternalDomain %>"><%= deployment.ExternalDomain %></a> </td>
+      <td> <a href="https://<%= deployment.Domain %>" target="_blank"><%= deployment.Domain %></a> </td>
       <td>
           <div class="pull-right">
             <a href="<%= deploymentPath({ deployment_id: deployment.ID }) %>" class="btn btn-info">View</a>

@@ -6,7 +6,7 @@ import (
 	"github.com/gobuffalo/pop"
 	"github.com/markbates/grift/grift"
 	"github.com/pkg/errors"
-	fh "manno.name/mm/faas-helpers"
+	fh "manno.name/mm/faas/faas-helpers"
 	"manno.name/mm/faas/models"
 )
 

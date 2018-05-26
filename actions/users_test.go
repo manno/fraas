@@ -5,14 +5,16 @@ import (
 )
 
 func (as *ActionSuite) Test_Users_New() {
+	as.Login()
 	res := as.HTML("/users/new").Get()
 	as.Equal(200, res.Code)
 }
 
 func (as *ActionSuite) Test_Users_Create() {
+	as.Login()
 	count, err := as.DB.Count("users")
 	as.NoError(err)
-	as.Equal(0, count)
+	as.Equal(1, count)
 
 	u := &models.User{
 		Email:                "mark@example.com",
@@ -25,5 +27,5 @@ func (as *ActionSuite) Test_Users_Create() {
 
 	count, err = as.DB.Count("users")
 	as.NoError(err)
-	as.Equal(1, count)
+	as.Equal(2, count)
 }

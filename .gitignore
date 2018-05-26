@@ -12,3 +12,6 @@ faas
 .vscode/
 .grifter/
 .env
+.envrc
+faas.yml
+FAAS-*.json

@@ -2,6 +2,41 @@
   <h1>Deployment#Show</h1>
 </div>
 
+<table class="table table-striped">
+  <thead>
+        <th> Key </th>
+        <th> Value </th>
+        <th>&nbsp;</th>
+  </thead>
+  <tbody>
+      <tr>
+        <td> ID </td>
+        <td> <%= deployment.ID %> </td>
+      </tr>
+
+      <tr>
+        <td> Name </td>
+        <td> <%= deployment.Name %> </td>
+      </tr>
+
+      <tr>
+        <td> Domain </td>
+        <td> <%= deployment.Domain %> </td>
+      </tr>
+
+      <tr>
+        <td> ExternalDomain (not supported yet) </td>
+        <td> <%= deployment.ExternalDomain %> </td>
+      </tr>
+
+      <tr>
+        <td> ContactEmail </td>
+        <td> <%= deployment.ContactEmail %> </td>
+      </tr>
+  </tbody>
+</table>
+
+
 <ul class="list-unstyled list-inline">
   <li><a href="<%= deploymentsPath() %>" class="btn btn-info">Back to all Deployments</a></li>
   <li><a href="<%= editDeploymentPath({ deployment_id: deployment.ID })%>" class="btn btn-warning">Edit</a></li>

@@ -51,7 +51,7 @@
 
 [[constraint]]
   branch = "master"
-  name = "github.com/unrolled/secure"
+  name = "k8s.io/client-go"
 
 [prune]
   go-tests = true

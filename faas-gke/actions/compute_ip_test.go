@@ -1,0 +1,21 @@
+package actions_test
+
+import (
+	"testing"
+
+	"manno.name/mm/faas/faas-gke/actions"
+	"manno.name/mm/faas/faas-gke/models"
+
+	. "github.com/onsi/gomega"
+)
+
+// need to export GOOGLE_APPLICATION_CREDENTIALS=/Users/mm/Downloads/PROJECT_COMPUTE_NETWORK_ADMIN.json service account
+func TestComputeIP(t *testing.T) {
+	RegisterTestingT(t)
+
+	d := &models.Deployment{Name: "test"}
+	a := actions.NewComputeIP(d)
+
+	t.Run("Apply", func(t *testing.T) { Expect(a.Apply()).NotTo(HaveOccurred()) })
+	t.Run("Revert", func(t *testing.T) { Expect(a.Revert()).ToNot(HaveOccurred()) })
+}

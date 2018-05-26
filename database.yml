@@ -11,3 +11,6 @@ test:
 
 production:
   url: {{envOr "DATABASE_URL" "postgres://postgres:postgres@127.0.0.1:5432/faas_production?sslmode=disable"}}
+
+admin:
+  url: {{envOr "ADMIN_DATABASE_URL" "postgres://postgres:postgres@127.0.0.1:5432/frab_deployment?sslmode=disable"}}

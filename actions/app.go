@@ -3,15 +3,16 @@ package actions
 import (
 	"github.com/gobuffalo/buffalo"
 	"github.com/gobuffalo/buffalo/middleware"
-	"github.com/gobuffalo/buffalo/middleware/ssl"
 	"github.com/gobuffalo/envy"
-	"github.com/unrolled/secure"
 
 	"github.com/gobuffalo/buffalo/middleware/csrf"
 	"github.com/gobuffalo/buffalo/middleware/i18n"
 	"github.com/gobuffalo/packr"
+
 	"manno.name/mm/faas/models"
 	"manno.name/mm/faas/workers"
+
+	fh "manno.name/mm/faas/faas-helpers"
 )
 
 // ENV is used to help switch settings based on where the
@@ -29,20 +30,30 @@ func App() *buffalo.App {
 			Env:         ENV,
 			SessionName: "_faas_session",
 		})
-		// Automatically redirect to SSL
-		app.Use(ssl.ForceSSL(secure.Options{
-			SSLRedirect:     ENV == "production",
-			SSLProxyHeaders: map[string]string{"X-Forwarded-Proto": "https"},
-		}))
 
 		if ENV == "development" {
 			app.Use(middleware.ParameterLogger)
 		}
 
+		// Load complex site config
+		if err := fh.ConfigFromEnv(); err != nil {
+			app.Stop(err)
+		}
+
 		// Register jobs
 		w := app.Worker
-		w.Register("unset_gke", workers.UnsetGKE)
-		w.Register("set_gke", workers.SetGKE)
+		if err := w.Register("unset_gke", workers.UnsetGKE); err != nil {
+			app.Stop(err)
+		}
+		if err := w.Register("set_gke", workers.SetGKE); err != nil {
+			app.Stop(err)
+		}
+		if err := w.Register("unset_db", workers.UnsetDB); err != nil {
+			app.Stop(err)
+		}
+		if err := w.Register("set_db", workers.SetDB); err != nil {
+			app.Stop(err)
+		}
 
 		// Protect against CSRF attacks. https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)
 		// Remove to disable this.
@@ -70,9 +81,10 @@ func App() *buffalo.App {
 		app.POST("/signin", AuthCreate)
 		app.DELETE("/signout", AuthDestroy)
 		app.Resource("/deployments", DeploymentsResource{})
+		app.POST("/deployments/{deployment_id}/set", DeploymentsSet)
+		app.POST("/deployments/{deployment_id}/unset", DeploymentsUnset)
+
 		app.Middleware.Skip(Authorize, HomeHandler, AuthNew, AuthCreate)
-		app.POST("/deployment/set", DeploymentsSet)
-		app.POST("/deployment/unset", DeploymentsUnset)
 		app.ServeFiles("/", assetsBox) // serve files from the public directory
 	}
 

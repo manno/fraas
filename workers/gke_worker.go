@@ -1,19 +1,29 @@
 package workers
 
 import (
-	"fmt"
+	"errors"
 
 	"github.com/gobuffalo/buffalo/worker"
+	gke "manno.name/mm/faas/faas-gke"
+	"manno.name/mm/faas/models"
 )
 
-var w worker.Worker
+func SetGKE(args worker.Args) error {
+	deployment := &models.Deployment{}
+	if err := models.DB.Find(deployment, args["deployment_id"]); err != nil {
+		return errors.New("Worker failed to load deployment from DB")
+	}
 
-func UnsetGKE(args worker.Args) error {
-	fmt.Printf("%#v", args)
-	return nil
+	gke.Setup()
+	return gke.Apply(deployment.String())
 }
 
-func SetGKE(args worker.Args) error {
-	fmt.Printf("%#v", args)
-	return nil
+func UnsetGKE(args worker.Args) error {
+	deployment := &models.Deployment{}
+	if err := models.DB.Find(deployment, args["deployment_id"]); err != nil {
+		return errors.New("Worker failed to load deployment from DB")
+	}
+
+	gke.Setup()
+	return gke.Revert(deployment.String())
 }
