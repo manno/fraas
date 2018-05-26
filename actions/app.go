@@ -11,6 +11,7 @@ import (
 	"github.com/gobuffalo/buffalo/middleware/i18n"
 	"github.com/gobuffalo/packr"
 	"manno.name/mm/faas/models"
+	"manno.name/mm/faas/workers"
 )
 
 // ENV is used to help switch settings based on where the
@@ -37,6 +38,11 @@ func App() *buffalo.App {
 		if ENV == "development" {
 			app.Use(middleware.ParameterLogger)
 		}
+
+		// Register jobs
+		w := app.Worker
+		w.Register("unset_gke", workers.UnsetGKE)
+		w.Register("set_gke", workers.SetGKE)
 
 		// Protect against CSRF attacks. https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)
 		// Remove to disable this.
@@ -65,8 +71,8 @@ func App() *buffalo.App {
 		app.DELETE("/signout", AuthDestroy)
 		app.Resource("/deployments", DeploymentsResource{})
 		app.Middleware.Skip(Authorize, HomeHandler, AuthNew, AuthCreate)
-		app.POST("/deployments/set", DeploymentsSet)
-		app.POST("/deployments/unset", DeploymentsUnset)
+		app.POST("/deployment/set", DeploymentsSet)
+		app.POST("/deployment/unset", DeploymentsUnset)
 		app.ServeFiles("/", assetsBox) // serve files from the public directory
 	}
 

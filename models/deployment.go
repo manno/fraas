@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"time"
 
+	fh "manno.name/mm/faas-helpers"
+
 	"github.com/gobuffalo/pop"
 	"github.com/gobuffalo/uuid"
 	"github.com/gobuffalo/validate"
@@ -20,6 +22,13 @@ type Deployment struct {
 	DatabasePassword string `json:"database_password" db:"database_password"`
 	Domain           string `json:"domain" db:"domain"`
 	ExternalDomain   string `json:"external_domain" db:"external_domain"`
+}
+
+func NewDeployment() *Deployment {
+	deployment := &Deployment{
+		DatabasePassword: fh.GeneratePassword(10),
+	}
+	return deployment
 }
 
 // String is not required by pop and may be deleted

@@ -2,6 +2,7 @@ package actions
 
 import (
 	"github.com/gobuffalo/buffalo"
+	"github.com/gobuffalo/buffalo/worker"
 	"github.com/gobuffalo/pop"
 	"github.com/pkg/errors"
 	"manno.name/mm/faas/models"
@@ -73,7 +74,7 @@ func (v DeploymentsResource) Show(c buffalo.Context) error {
 // New renders the form for creating a new Deployment.
 // This function is mapped to the path GET /deployments/new
 func (v DeploymentsResource) New(c buffalo.Context) error {
-	return c.Render(200, r.Auto(c, &models.Deployment{}))
+	return c.Render(200, r.Auto(c, models.NewDeployment()))
 }
 
 // Create adds a Deployment to the DB. This function is mapped to the
@@ -204,12 +205,40 @@ func (v DeploymentsResource) Destroy(c buffalo.Context) error {
 	return c.Render(200, r.Auto(c, deployment))
 }
 
-// DeploymentsSet default implementation.
 func DeploymentsSet(c buffalo.Context) error {
-	return c.Render(200, r.HTML("deployments/set.html"))
+	err := runDeploymentJob(c, "set_gke")
+	if err != nil {
+		return err
+	}
+	return c.Redirect(302, "/deployments")
 }
 
-// DeploymentsUnset default implementation.
 func DeploymentsUnset(c buffalo.Context) error {
-	return c.Render(200, r.HTML("deployments/unset.html"))
+	err := runDeploymentJob(c, "unset_gke")
+	if err != nil {
+		return err
+	}
+	return c.Redirect(302, "/deployments")
+}
+
+func runDeploymentJob(c buffalo.Context, method string) error {
+	tx, ok := c.Value("tx").(*pop.Connection)
+	if !ok {
+		return errors.WithStack(errors.New("no transaction found"))
+	}
+
+	deployment := &models.Deployment{}
+	if err := tx.Find(deployment, c.Param("deployment_id")); err != nil {
+		return c.Error(404, err)
+	}
+
+	w := app.Worker
+	w.Perform(worker.Job{
+		Queue:   "default",
+		Handler: method,
+		Args: worker.Args{
+			"deployment_id": c.Param("deployment_id"),
+		},
+	})
+	return nil
 }

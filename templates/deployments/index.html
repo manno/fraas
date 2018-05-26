@@ -13,10 +13,17 @@
     <%= for (deployment) in deployments { %>
       <tr>
       <td>
+        <%= deployment.ID %>
+        <%= deployment.Name %>
+        <%= deployment.ExternalDomain %>
+      </td>
+      <td>
           <div class="pull-right">
             <a href="<%= deploymentPath({ deployment_id: deployment.ID }) %>" class="btn btn-info">View</a>
             <a href="<%= editDeploymentPath({ deployment_id: deployment.ID }) %>" class="btn btn-warning">Edit</a>
             <a href="<%= deploymentPath({ deployment_id: deployment.ID }) %>" data-method="DELETE" data-confirm="Are you sure?" class="btn btn-danger">Destroy</a>
+            <a href="<%= deploymentSetPath({ deployment_id: deployment.ID }) %>" data-method="POST" data-confirm="Are you sure?" class="btn btn-danger">Set</a>
+            <a href="<%= deploymentUnsetPath({ deployment_id: deployment.ID }) %>" data-method="POST" data-confirm="Are you sure?" class="btn btn-danger">Unset</a>
           </div>
         </td>
       </tr>
