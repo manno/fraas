@@ -2,6 +2,7 @@
   <h1><%= current_user.Email %></h1>
   <a href="/signout" data-method="DELETE">Sign Out</a>
   <a href="/users/new" class="btn btn-success">New User</a>
+  <a href="/deployments" class="btn btn-primary">Deployments</a>
 <% } else { %>
   <a href="/signin" class="btn btn-primary">Sign In</a>
 <% } %>

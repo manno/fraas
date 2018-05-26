@@ -1,0 +1,6 @@
+- id: "deployment.created.success"
+  translation: "Deployment was successfully created."
+- id: "deployment.updated.success"
+  translation: "Deployment was successfully updated."
+- id: "deployment.destroyed.success"
+  translation: "Deployment was successfully destroyed."

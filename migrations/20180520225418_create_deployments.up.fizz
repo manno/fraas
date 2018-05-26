@@ -1,0 +1,8 @@
+create_table("deployments", func(t) {
+	t.Column("id", "uuid", {"primary": true})
+	t.Column("name", "string", {})
+	t.Column("database_id", "string", {})
+	t.Column("database_password", "string", {})
+	t.Column("domain", "string", {})
+	t.Column("external_domain", "string", {})
+})

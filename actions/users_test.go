@@ -1,7 +1,7 @@
 package actions
 
 import (
-  "manno.name/mm/faas/models"
+	"manno.name/mm/faas/models"
 )
 
 func (as *ActionSuite) Test_Users_New() {

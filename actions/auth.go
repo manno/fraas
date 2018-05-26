@@ -4,12 +4,12 @@ import (
 	"database/sql"
 	"strings"
 
-  "manno.name/mm/faas/models"
 	"github.com/gobuffalo/buffalo"
 	"github.com/gobuffalo/pop"
 	"github.com/gobuffalo/validate"
 	"github.com/pkg/errors"
 	"golang.org/x/crypto/bcrypt"
+	"manno.name/mm/faas/models"
 )
 
 // AuthNew loads the signin page

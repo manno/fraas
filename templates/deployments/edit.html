@@ -1,0 +1,8 @@
+<div class="page-header">
+  <h1>Edit Deployment</h1>
+</div>
+
+<%= form_for(deployment, {action: deploymentPath({ deployment_id: deployment.ID }), method: "PUT"}) { %>
+  <%= partial("deployments/form.html") %>
+  <a href="<%= deploymentPath({ deployment_id: deployment.ID }) %>" class="btn btn-warning" data-confirm="Are you sure?">Cancel</a>
+<% } %>
