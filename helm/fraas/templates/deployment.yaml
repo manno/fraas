@@ -1,0 +1,59 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-web
+  labels:
+    app: {{ .Release.Name }}
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}
+        tier: web
+    spec:
+      serviceAccountName: {{ .Values.project.serviceAccountName }}
+
+      containers:
+      - name: {{ .Release.Name }}-app
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 3000
+        image: {{ .Values.image.source }}
+        imagePullPolicy: "Always"
+        ports:
+        - containerPort: 3000
+          name: http-port
+
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Release.Name }}-secrets
+              key: DATABASE_URL
+        - name: SESSION_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Release.Name }}-secrets
+              key: SESSION_SECRET
+        - name: FRAAS_CONFIG
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Release.Name }}-config
+              key: fraas-config
+
+      - name: cloudsql-proxy
+        image: gcr.io/cloudsql-docker/gce-proxy:1.11
+        command: ["/cloud_sql_proxy",
+                  "-instances={{ .Values.project.id }}:{{ .Values.cloudSQL.zone }}:{{ .Values.cloudSQL.instance }}=tcp:5432",
+                  "-credential_file=/secrets/cloudsql/credentials.json"]
+        volumeMounts:
+        - name: cloudsql-instance-credentials
+          mountPath: /secrets/cloudsql
+          readOnly: true
+
+      volumes:
+      - name: cloudsql-instance-credentials
+        secret:
+          secretName: {{ .Values.cloudSQL.secret }}

@@ -1,0 +1,19 @@
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: {{ .Release.Name }}-app-tls
+  namespace: default
+spec:
+  secretName: {{ .Release.Name }}-app-tls
+  issuerRef:
+    name: {{ .Values.ingress.issuer }}
+    kind: ClusterIssuer
+  commonName: {{ .Values.ingress.dnsName }}
+  dnsNames:
+  - {{ .Values.ingress.dnsName }}
+  acme:
+    config:
+    - http01:
+        ingress: {{ .Release.Name }}-web
+      domains:
+      - {{ .Values.ingress.dnsName }}

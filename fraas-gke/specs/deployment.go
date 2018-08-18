@@ -46,7 +46,7 @@ func deploymentPodSpec(d *models.Deployment, config *fh.SiteConfig) apiv1.PodSpe
 				Name: "cloudsql-instance-credentials",
 				VolumeSource: apiv1.VolumeSource{
 					Secret: &apiv1.SecretVolumeSource{
-						SecretName: "cloudsql-frab-credentials",
+						SecretName: "cloudsql-fraas-credentials",
 					},
 				},
 			},

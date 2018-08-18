@@ -61,99 +61,22 @@ database:
 
 When running `export FRAAS_CONFIG=$(cat fraas.yml)` watch out for newlines.
 
-## Google Kubernetes Engine Configuration
+## Running FRAAS on Google Kubernetes Engine
 
-### Cluster
+Use the `setup-gke.sh` and helm charts in `helm/fraas` as described by the (README)[helm/fraas/README.md].
 
-To be able to modify DNS:
+### Notes
 
-```
-% gcloud container clusters create "fraas-1" \
-    --num-nodes 1 \
-    --scopes "https://www.googleapis.com/auth/ndev.clouddns.readwrite"
+#### DNS
 
-or use nodeSelector on deployment
+The configured DNS zone is managed by Google DNS servers: `gcloud dns managed-zones list`.
+To be able to modify DNS the node-pool used by FRAAS needs access to the scope `"https://www.googleapis.com/auth/ndev.clouddns.readwrite"`.
 
-% gcloud container node-pools create fraas-pool --cluster fraas-1 --scopes https://www.googleapis.com/auth/ndev.clouddns.readwrite
-```
+#### IAM
 
-### IAM
+FRAAS uses two pre-existing service accounts:
 
-1. service account for deployments, dns.admin, compute.admin, used by FRAAS
-1. service account with sql role, later uploaded to be used by frab deployments
+1. service account for deployments, dns.admin, compute.admin, used by FRAAS itself
+1. service account with sql role, used by frab deployments to access the DB
 
-```
-% gcloud projects get-iam-policy fraas-1234
-bindings:
-- members:
-  - serviceAccount:sql@fraas-1234.iam.gserviceaccount.com
-  role: roles/cloudsql.client
-- members:
-  - serviceAccount:compute-address@fraas-1234.iam.gserviceaccount.com
-  role: roles/compute.admin
-- members:
-  - serviceAccount:compute-address@fraas-1234.iam.gserviceaccount.com
-  role: roles/compute.networkAdmin
-- members:
-  - serviceAccount:compute-address@fraas-1234.iam.gserviceaccount.com
-  role: roles/dns.admin
-```
-
-#### Inside GKE
-
-```
-kubectl create serviceaccount fraas
-kubectl create rolebinding fraas-admin \
-  --clusterrole=cluster-admin \
-  --serviceaccount=default:fraas \
-  --namespace=default
-```
-
-### Docker
-
-Upload docker image: `gcloud docker -- push eu.gcr.io/fraas-1234/frab`
-
-### Database
-
-Create GKE Cloud SQL instance:
-
-```
-gcloud sql databases create fraas \
-  --instance frab-pq --project fraas-1234
-```
-
-Set admin user password on instance, so FRAAS can create databases:
-
-```
-gcloud sql users set-password postgres no-host \
-  --instance frab-pq --project fraas-1234 \
-  --password password123
-```
-
-Push credentials with permissions on Cloud SQL (`sql@fraas-1234.iam.gserviceaccount.com`) to GKE:
-
-```
-kubectl create secret generic cloudsql-frab-credentials \
-  --from-file=credentials.json=FRAAS-123456789012.json
-```
-
-### DNS
-
-The configured zone is managed by Google DNS servers: `gcloud dns managed-zones`.
-
-<<<<<<< HEAD
-```
-gcloud dns --project=fraas-1234 managed-zones create frabapp --description='frab zone' --dns-name=frab.app.
-```
-
-### TLS - LetsEncrypt
-
-Follow https://github.com/ahmetb/gke-letsencrypt/blob/master/30-setup-letsencrypt.md
-
-Upload issuer with your email:
-
-```
-curl -sSL https://rawgit.com/ahmetb/gke-letsencrypt/master/yaml/letsencrypt-issuer.yaml | \
-    sed -e "s/email: ''/email: $EMAIL/g" | \
-    kubectl apply -f-
-```
+FRAAS uses a separate admin connection to create databases for new frab deployments.

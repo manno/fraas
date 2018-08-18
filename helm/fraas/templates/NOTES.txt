@@ -1,0 +1,3 @@
+FRAAS was installed as {{ .Release.Name }} into {{ .Release.Namespace }}
+
+

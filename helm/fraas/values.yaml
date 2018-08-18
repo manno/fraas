@@ -1,0 +1,22 @@
+ingress:
+  dnsName: admin.example.com
+  email: admin@example.org
+  issuer: letsencrypt-prod
+
+
+image:
+  source: gcr.io/fraas-1234/fraas:latest
+
+project:
+  id: fraas-1234
+  cluster: fraas-1
+  serviceAccountName: fraas
+
+cloudSQL:
+  zone: europe-west3
+  instance: fraas-db
+  secret: cloudsql-fraas-credentials
+
+app:
+  database_url: "postgres://fraas:password123@127.0.0.1:5432/fraas?sslmode=disable"
+  session_secret: "1234567890"

@@ -8,7 +8,7 @@ import (
 	"k8s.io/client-go/kubernetes"
 )
 
-const cloudsql_creds = "cloudsql-frab-credentials"
+const cloudsql_creds = "cloudsql-fraas-credentials"
 
 type CheckDBCreds struct {
 	clientset *kubernetes.Clientset

@@ -1,0 +1,23 @@
+---
+google:
+  project_id: $PROJECT_ID
+  zone: $ZONE
+  region: europe-west3
+  cluster_id: fraas-1
+  dnszone: frabapp
+
+domain: $DNS_DOMAIN
+docker_image: hub.docker.com/r/frab/frab
+
+mail:
+  smtp_server: 'localhost'
+  smtp_server_port: '25'
+  smtp_notls: 'true'
+  smtp_user_name: 'frab'
+  smtp_password: 'barf'
+  exception_email: 'admin@example.org'
+
+database:
+  instance: fraas-db
+  admin_user: postgres
+  admin_password: $DB_ADMIN_PASSOWRD
