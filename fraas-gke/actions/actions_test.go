@@ -4,7 +4,7 @@ import (
 	"os"
 	"testing"
 
-	fg "manno.name/mm/faas/faas-gke"
+	fg "manno.name/mm/fraas/fraas-gke"
 )
 
 func TestMain(m *testing.M) {

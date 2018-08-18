@@ -3,5 +3,5 @@ node_modules/
 bin/
 .env
 .envrc
-faas.yml
-FAAS-*.json
+fraas.yml
+FRAAS-*.json

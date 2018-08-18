@@ -6,8 +6,8 @@ import (
 	"github.com/gobuffalo/pop"
 	"github.com/markbates/grift/grift"
 	"github.com/pkg/errors"
-	fh "manno.name/mm/faas/faas-helpers"
-	"manno.name/mm/faas/models"
+	fh "manno.name/mm/fraas/fraas-helpers"
+	"manno.name/mm/fraas/models"
 )
 
 var _ = grift.Namespace("db", func() {

@@ -3,8 +3,8 @@ package actions_test
 import (
 	"testing"
 
-	"manno.name/mm/faas/faas-gke/actions"
-	"manno.name/mm/faas/faas-gke/models"
+	"manno.name/mm/fraas/fraas-gke/actions"
+	"manno.name/mm/fraas/fraas-gke/models"
 
 	. "github.com/onsi/gomega"
 )

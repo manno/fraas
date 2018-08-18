@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	"github.com/gobuffalo/suite"
-	"manno.name/mm/faas/models"
+	"manno.name/mm/fraas/models"
 )
 
 type ActionSuite struct {

@@ -1,7 +1,7 @@
 package models_test
 
 import (
-	"manno.name/mm/faas/models"
+	"manno.name/mm/fraas/models"
 )
 
 func (ms *ModelSuite) Test_User_Create() {

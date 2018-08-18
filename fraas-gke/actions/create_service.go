@@ -8,8 +8,8 @@ import (
 
 	"k8s.io/client-go/kubernetes"
 
-	"manno.name/mm/faas/faas-gke/models"
-	"manno.name/mm/faas/faas-gke/specs"
+	"manno.name/mm/fraas/fraas-gke/models"
+	"manno.name/mm/fraas/fraas-gke/specs"
 )
 
 type CreateService struct {

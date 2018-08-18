@@ -1,9 +1,9 @@
 # This is a multi-stage Dockerfile and requires >= Docker 17.05
 # https://docs.docker.com/engine/userguide/eng-image/multistage-build/
-FROM gobuffalo/buffalo:v0.11.1 as builder
+FROM gobuffalo/buffalo:v0.12.6 as builder
 
-RUN mkdir -p $GOPATH/src/manno.name/mm/faas
-WORKDIR $GOPATH/src/manno.name/mm/faas
+RUN mkdir -p $GOPATH/src/manno.name/mm/fraas
+WORKDIR $GOPATH/src/manno.name/mm/fraas
 
 # this will cache the npm install step, unless package.json changes
 ADD package.json .

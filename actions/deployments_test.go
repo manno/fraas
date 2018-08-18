@@ -1,6 +1,6 @@
 package actions
 
-import "manno.name/mm/faas/models"
+import "manno.name/mm/fraas/models"
 
 func createDeployment(as *ActionSuite, name string) (string, *models.Deployment) {
 	d := &models.Deployment{

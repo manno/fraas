@@ -9,7 +9,7 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/client-go/dynamic"
 	"k8s.io/client-go/rest"
-	"manno.name/mm/faas/faas-gke/models"
+	"manno.name/mm/fraas/fraas-gke/models"
 )
 
 type CreateCertificate struct {
@@ -29,7 +29,7 @@ func NewCreateCertificate(config *rest.Config, deployment *models.Deployment, sp
 }
 
 func (a *CreateCertificate) Apply() error {
-	_, err := a.client.Create(a.spec)
+	_, err := a.client.Create(a.spec, metav1.CreateOptions{})
 	if err != nil {
 		if googleapi.IsNotModified(err) {
 			ResourceNotModified("certificate", a.deployment.TLSSecretName(), err)

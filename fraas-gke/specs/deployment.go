@@ -6,8 +6,8 @@ import (
 	appv1 "k8s.io/api/apps/v1beta1"
 	apiv1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"manno.name/mm/faas/faas-gke/models"
-	fh "manno.name/mm/faas/faas-helpers"
+	"manno.name/mm/fraas/fraas-gke/models"
+	fh "manno.name/mm/fraas/fraas-helpers"
 )
 
 func NewDeploymentSpec(d *models.Deployment, config *fh.SiteConfig) *appv1.Deployment {

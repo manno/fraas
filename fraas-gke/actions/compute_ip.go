@@ -8,8 +8,8 @@ import (
 	compute "google.golang.org/api/compute/v1"
 	"google.golang.org/api/googleapi"
 
-	"manno.name/mm/faas/faas-gke/models"
-	fh "manno.name/mm/faas/faas-helpers"
+	"manno.name/mm/fraas/fraas-gke/models"
+	fh "manno.name/mm/fraas/fraas-helpers"
 )
 
 type ComputeIP struct {

@@ -6,16 +6,16 @@ show:
 	gcloud compute addresses list
 
 logs:
-	kubectl logs `kubectl get pods -l 'app=faas,tier=web' -o jsonpath="{.items[0].metadata.name}"` -c faas-app -f
+	kubectl logs `kubectl get pods -l 'app=fraas,tier=web' -o jsonpath="{.items[0].metadata.name}"` -c fraas-app -f
 
 build:
-	buffalo build -o bin/faas
+	buffalo build -o bin/fraas
 
 upload:
-	docker build -t gcr.io/faas-203916/faas:latest .
-	docker push gcr.io/faas-203916/faas:latest
+	docker build -t gcr.io/faas-203916/fraas:latest .
+	docker push gcr.io/faas-203916/fraas:latest
 
 restart:
-	kubectl delete pod/`kubectl get pods -l 'app=faas,tier=web' -o jsonpath="{.items[0].metadata.name}"`
+	kubectl delete pod/`kubectl get pods -l 'app=fraas,tier=web' -o jsonpath="{.items[0].metadata.name}"`
 
 update: build upload restart

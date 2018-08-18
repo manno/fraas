@@ -16,8 +16,8 @@ import (
 	"google.golang.org/api/dns/v1"
 	"google.golang.org/api/googleapi"
 
-	"manno.name/mm/faas/faas-gke/models"
-	fh "manno.name/mm/faas/faas-helpers"
+	"manno.name/mm/fraas/fraas-gke/models"
+	fh "manno.name/mm/fraas/fraas-helpers"
 )
 
 type UpdateDNS struct {

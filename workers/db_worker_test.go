@@ -3,7 +3,7 @@ package workers
 import (
 	"testing"
 
-	fh "manno.name/mm/faas/faas-helpers"
+	fh "manno.name/mm/fraas/fraas-helpers"
 )
 
 func TestAdminDB(t *testing.T) {

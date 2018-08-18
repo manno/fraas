@@ -4,7 +4,7 @@ import (
 	ext "k8s.io/api/extensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/util/intstr"
-	"manno.name/mm/faas/faas-gke/models"
+	"manno.name/mm/fraas/fraas-gke/models"
 )
 
 func NewIngressSpec(d *models.Deployment) *ext.Ingress {

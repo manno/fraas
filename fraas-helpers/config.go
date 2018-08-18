@@ -1,4 +1,4 @@
-package faas_helpers
+package fraas_helpers
 
 import (
 	"errors"
@@ -40,7 +40,7 @@ type Mail struct {
 	ExceptionEMail string `yaml:"exception_email"`
 }
 
-var ENV = envy.Get("FAAS_CONFIG", "{}")
+var ENV = envy.Get("FRAAS_CONFIG", "{}")
 var config *SiteConfig
 
 func Config() *SiteConfig {
@@ -57,7 +57,7 @@ func ConfigFromEnv() error {
 		return err
 	}
 	if config.Domain == "" {
-		return errors.New("FAAS site config is missing values")
+		return errors.New("FRAAS site config is missing values")
 	}
 	return nil
 }

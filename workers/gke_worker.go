@@ -4,8 +4,8 @@ import (
 	"errors"
 
 	"github.com/gobuffalo/buffalo/worker"
-	gke "manno.name/mm/faas/faas-gke"
-	"manno.name/mm/faas/models"
+	gke "manno.name/mm/fraas/fraas-gke"
+	"manno.name/mm/fraas/models"
 )
 
 func SetGKE(args worker.Args) error {

@@ -1,4 +1,4 @@
-package faas_gke
+package fraas_gke
 
 import (
 	"encoding/json"
@@ -14,10 +14,10 @@ import (
 	_ "k8s.io/client-go/plugin/pkg/client/auth/gcp"
 
 	"k8s.io/client-go/rest"
-	"manno.name/mm/faas/faas-gke/actions"
-	"manno.name/mm/faas/faas-gke/models"
-	"manno.name/mm/faas/faas-gke/specs"
-	fh "manno.name/mm/faas/faas-helpers"
+	"manno.name/mm/fraas/fraas-gke/actions"
+	"manno.name/mm/fraas/fraas-gke/models"
+	"manno.name/mm/fraas/fraas-gke/specs"
+	fh "manno.name/mm/fraas/fraas-helpers"
 )
 
 var KubeClientset *kubernetes.Clientset

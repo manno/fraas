@@ -4,7 +4,7 @@ import (
 	"github.com/gobuffalo/buffalo"
 	"github.com/gobuffalo/pop"
 	"github.com/pkg/errors"
-	"manno.name/mm/faas/models"
+	"manno.name/mm/fraas/models"
 )
 
 func UsersNew(c buffalo.Context) error {

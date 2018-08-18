@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 
-	"manno.name/mm/faas/actions"
+	"manno.name/mm/fraas/actions"
 )
 
 func main() {

@@ -8,8 +8,8 @@ import (
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/util/intstr"
 
-	"manno.name/mm/faas/faas-gke/models"
-	fh "manno.name/mm/faas/faas-helpers"
+	"manno.name/mm/fraas/fraas-gke/models"
+	fh "manno.name/mm/fraas/fraas-helpers"
 )
 
 func int32Ptr(i int32) *int32 { return &i }

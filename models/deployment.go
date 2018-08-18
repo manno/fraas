@@ -9,7 +9,7 @@ import (
 	"github.com/gobuffalo/validate"
 	"github.com/gobuffalo/validate/validators"
 
-	fh "manno.name/mm/faas/faas-helpers"
+	fh "manno.name/mm/fraas/fraas-helpers"
 )
 
 type Deployment struct {

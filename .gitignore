@@ -8,10 +8,10 @@ node_modules/
 .sass-cache/
 *-packr.go
 public/assets/
-faas
+fraas
 .vscode/
 .grifter/
 .env
 .envrc
-faas.yml
-FAAS-*.json
+fraas.yml
+FRAAS-*.json

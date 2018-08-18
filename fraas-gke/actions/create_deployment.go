@@ -8,9 +8,9 @@ import (
 
 	"k8s.io/client-go/kubernetes"
 
-	"manno.name/mm/faas/faas-gke/models"
-	"manno.name/mm/faas/faas-gke/specs"
-	fh "manno.name/mm/faas/faas-helpers"
+	"manno.name/mm/fraas/fraas-gke/models"
+	"manno.name/mm/fraas/fraas-gke/specs"
+	fh "manno.name/mm/fraas/fraas-helpers"
 )
 
 type CreateDeployment struct {

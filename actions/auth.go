@@ -9,7 +9,7 @@ import (
 	"github.com/gobuffalo/validate"
 	"github.com/pkg/errors"
 	"golang.org/x/crypto/bcrypt"
-	"manno.name/mm/faas/models"
+	"manno.name/mm/fraas/models"
 )
 
 // AuthNew loads the signin page

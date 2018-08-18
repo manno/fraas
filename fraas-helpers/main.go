@@ -1,4 +1,4 @@
-package faas_helpers
+package fraas_helpers
 
 import (
 	"math/rand"

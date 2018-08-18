@@ -1,6 +1,6 @@
 package actions
 
-import "manno.name/mm/faas/models"
+import "manno.name/mm/fraas/models"
 
 func (as *ActionSuite) Test_HomeHandler() {
 	res := as.HTML("/").Get()

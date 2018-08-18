@@ -9,10 +9,10 @@ import (
 	"github.com/gobuffalo/buffalo/middleware/i18n"
 	"github.com/gobuffalo/packr"
 
-	"manno.name/mm/faas/models"
-	"manno.name/mm/faas/workers"
+	"manno.name/mm/fraas/models"
+	"manno.name/mm/fraas/workers"
 
-	fh "manno.name/mm/faas/faas-helpers"
+	fh "manno.name/mm/fraas/fraas-helpers"
 )
 
 // ENV is used to help switch settings based on where the
@@ -28,7 +28,7 @@ func App() *buffalo.App {
 	if app == nil {
 		app = buffalo.New(buffalo.Options{
 			Env:         ENV,
-			SessionName: "_faas_session",
+			SessionName: "_fraas_session",
 		})
 
 		if ENV == "development" {

@@ -2,7 +2,7 @@ package grifts
 
 import (
 	"github.com/gobuffalo/buffalo"
-	"manno.name/mm/faas/actions"
+	"manno.name/mm/fraas/actions"
 )
 
 func init() {

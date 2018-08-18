@@ -7,8 +7,8 @@ import (
 
 	"github.com/gobuffalo/buffalo/worker"
 	"github.com/gobuffalo/pop"
-	fh "manno.name/mm/faas/faas-helpers"
-	"manno.name/mm/faas/models"
+	fh "manno.name/mm/fraas/fraas-helpers"
+	"manno.name/mm/fraas/models"
 )
 
 func SetDB(args worker.Args) error {

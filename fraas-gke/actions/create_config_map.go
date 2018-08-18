@@ -5,9 +5,9 @@ import (
 	"k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
-	"manno.name/mm/faas/faas-gke/models"
-	"manno.name/mm/faas/faas-gke/specs"
-	fh "manno.name/mm/faas/faas-helpers"
+	"manno.name/mm/fraas/fraas-gke/models"
+	"manno.name/mm/fraas/fraas-gke/specs"
+	fh "manno.name/mm/fraas/fraas-helpers"
 )
 
 type CreateConfigMap struct {
