@@ -1,0 +1,23 @@
+DockerImage: ""
+ProjectID: ""
+Region: ""
+CloudSQLSecretName: ""
+
+Database:
+  Instance: ""
+  Name: ""
+  Password: ""
+  User: ""
+
+
+frab:
+  SecretKey: ""
+  ExceptionMail: ""
+  ExternalDomain: ""
+  FromEmail: ""
+  SMTP:
+    NOTLS: ""
+    Server: ""
+    ServerPort: ""
+
+Issuer: ""

@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ .Release.Name }}-web
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+  labels:
+    app: {{ .Release.Name }}
+spec:
+  backend:
+    serviceName: {{ .Release.Name }}-backend
+    servicePort: 3000
+  tls:
+  - secretName: {{ .Release.Name }}-app-tls
+    hosts:
+    - {{ .Values.frab.ExternalDomain }}

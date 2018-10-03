@@ -1,0 +1,61 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-web
+  labels:
+    app: {{ .Release.Name }}
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}
+        tier: web
+    spec:
+      containers:
+      - name: {{ .Release.Name }}-app
+        image: {{ .Values.DockerImage }}
+        ports:
+        - containerPort: 3000
+          name: http-port
+
+        envFrom:
+        - configMapRef:
+            name: {{ .Release.Name }}-config
+
+        env:
+        - name: SECRET_KEY_NAME
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Release.Name }}-secrets
+              key: SECRET_KEY_BASE
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Release.Name }}-secrets
+              key: DATABASE_URL
+        - name: SMTP_USER_NAME
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Release.Name }}-secrets
+              key: SMTP_USER_NAME
+        - name: SMTP_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Release.Name }}-secrets
+              key: SMTP_PASSWORD
+
+      - name: cloudsql-proxy
+        image: gcr.io/cloudsql-docker/gce-proxy:1.11
+        command: ["/cloud_sql_proxy",
+                  "-instances={{ .Values.ProjectID }}:{{ .Values.Region }}:{{ .Values.Database.Instance }}=tcp:5432",
+                  "-credential_file=/secrets/cloudsql/credentials.json"]
+        volumeMounts:
+        - name: cloudsql-instance-credentials
+          mountPath: /secrets/cloudsql
+          readOnly: true
+
+      volumes:
+      - name: cloudsql-instance-credentials
+        secret:
+          secretName: {{ .Values.CloudSQLSecretName }}

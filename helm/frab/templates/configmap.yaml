@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-config
+  namespace: default
+data:
+  FRAB_CURRENCY_FORMAT: "%n%u"
+  FRAB_CURRENCY_UNIT: "€"
+  FRAB_HOST: {{ .Values.frab.ExternalDomain }}
+  FRAB_PROTOCOL: "https"
+  FROM_EMAIL: {{ .Values.frab.FromEmail }}
+  SMTP_ADDRESS: {{ .Values.frab.SMTP.Server }}
+  SMTP_NOTLS: {{ .Values.frab.SMTP.NoTLS }}
+  SMTP_PORT: {{ .Values.frab.SMTP.ServerPort }}
+  RACK_ENV: "production"
+  RAILS_SERVE_STATIC_FILES: "true"
+  RAILS_LOG_TO_STDOUT: "true"
+  EXCEPTION_EMAIL: {{ .Values.frab.ExceptionMail }}
